@@ -15,7 +15,7 @@ type Weather struct {
 }
 
 func main() {
-	apiKey := "ta_clef_api_openweather" // à remplacer
+	apiKey := "e4257af80a583839c67ce91bebf68fe0" // à remplacer
 	city := "Paris"
 
 	url := fmt.Sprintf("https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s&units=metric", city, apiKey)
