@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des pays</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style-type: square;
+        }
+    </style>
+</head>
+<body>
+    <h1>Liste des pays</h1>
+
+    <ul>
+        {{range .Countries}}
+            <li>{{.}}</li>
+        {{else}}
+            <li>Aucun pays disponible.</li>
+        {{end}}
+    </ul>
+</body>
+</html>

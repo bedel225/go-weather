@@ -1,15 +1,31 @@
 package frontweather
 
 import (
-	"github.com/gofiber/fiber/v2"
+	"html/template"
+	"log"
+	"net/http"
 )
 
-func Index() {
-	app := fiber.New()
-	message := "bienvenue sur votre site de la meteo"
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString(message)
-	})
+type PageData struct {
+	Countries []string
+}
 
-	app.Listen(":3000")
+func AccueilHandler(w http.ResponseWriter, r *http.Request) {
+	// 1. Données
+	countries := []string{"France", "Allemagne", "Canada", "Japon", "Brésil"}
+	data := PageData{Countries: countries}
+
+	// 2. Charger template
+	tmpl, err := template.ParseFiles("templates/countries.html")
+	if err != nil {
+		http.Error(w, "Erreur template", http.StatusInternalServerError)
+		log.Println("Erreur template:", err)
+		return
+	}
+
+	// 3. Exécuter template
+	err = tmpl.Execute(w, data)
+	if err != nil {
+		log.Println("Erreur exécution:", err)
+	}
 }
