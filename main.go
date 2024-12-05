@@ -20,6 +20,11 @@ func main() {
 
 	http.HandleFunc("/", frontweather.AccueilHandler)
 
+	// Servir fichiers statiques (CSS, images…)
+	http.Handle("/static/css/",
+		http.StripPrefix("/static/css/", http.FileServer(http.Dir("static/css"))),
+	)
+
 	log.Println("Serveur lancé sur http://localhost:8080")
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
