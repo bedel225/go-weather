@@ -7,12 +7,18 @@
 </head>
 <body>
     <div class="container">
-        <h1>Liste des pays</h1>
-        <ul>
-            {{range .Countries}}
-                <li>{{.}}</li>
-            {{end}}
-        </ul>
+        <h1>Choisissez un pays</h1>
+
+        <form method="GET" action="/weather">
+            <label for="country">Pays :</label>
+            <select id="country" name="country">
+                {{range .Countries}}
+                    <option value="{{.}}">{{.}}</option>
+                {{end}}
+            </select>
+
+            <button type="submit">Valider</button>
+        </form>
     </div>
 </body>
 </html>
