@@ -2,23 +2,49 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Pays disponibles</title>
+    <title>Pays et villes</title>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Choisissez un pays</h1>
-
+        <h1>Choisissez un pays et une ville</h1>
         <form method="GET" action="/weather">
             <label for="country">Pays :</label>
             <select id="country" name="country">
+                <option value="">-- Sélectionner un pays --</option>
                 {{range .Countries}}
                     <option value="{{.}}">{{.}}</option>
                 {{end}}
             </select>
 
+            <label for="city">Ville :</label>
+            <select id="city" name="city">
+                <option value="">-- Sélectionner une ville --</option>
+            </select>
+
             <button type="submit">Valider</button>
         </form>
     </div>
+
+    <script>
+        const cities = {{.Cities | json}}; // on convertira en JSON
+        const countrySelect = document.getElementById('country');
+        const citySelect = document.getElementById('city');
+
+        countrySelect.addEventListener('change', function() {
+            const selectedCountry = this.value;
+
+            citySelect.innerHTML = '<option value="">-- Sélectionner une ville --</option>';
+
+            if(cities[selectedCountry]) {
+                cities[selectedCountry].forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city;
+                    option.textContent = city;
+                    citySelect.appendChild(option);
+                });
+            }
+        });
+    </script>
 </body>
 </html>

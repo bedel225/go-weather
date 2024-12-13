@@ -46,3 +46,11 @@ button {
 button:hover {
     background: #0056b3;
 }
+
+select, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+}
