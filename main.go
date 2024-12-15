@@ -20,6 +20,9 @@ func main() {
 
 	http.HandleFunc("/", frontweather.AccueilHandler)
 
+	// Route pour récupérer le pays et la ville
+	http.HandleFunc("/weather", frontweather.WeatherHandler)
+
 	// Servir fichiers statiques (CSS, images…)
 	http.Handle("/static/css/",
 		http.StripPrefix("/static/css/", http.FileServer(http.Dir("static/css"))),
@@ -33,7 +36,7 @@ func main() {
 
 	apiKey := functions.ApiKey()
 	//city := "Paris"
-	city := "abidjan"
+	city := frontweather.SelectedCity
 
 	temperature := functions.Temp(city, apiKey)
 

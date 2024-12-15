@@ -12,6 +12,9 @@ type PageData struct {
 	Cities    map[string][]string
 }
 
+var SelectedCity string
+var SelectedCountry string
+
 // JSON convertit une structure Go en JSON utilisable dans le template
 func JSON(v interface{}) template.JS {
 	a, _ := json.Marshal(v)
@@ -48,4 +51,15 @@ func AccueilHandler(w http.ResponseWriter, r *http.Request) {
 	if err := tmpl.Execute(w, data); err != nil {
 		log.Println("Erreur exécution:", err)
 	}
+}
+
+func WeatherHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "Méthode non autorisée", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Récupérer la ville et le pays depuis le formulaire
+	SelectedCity = r.FormValue("city")
+	SelectedCountry = r.FormValue("country")
 }
