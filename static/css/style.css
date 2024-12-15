@@ -19,32 +19,8 @@ h1 {
 
 label {
     display: block;
-    margin-bottom: 10px;
+    margin-top: 15px;
     font-weight: bold;
-}
-
-select {
-    width: 100%;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-}
-
-button {
-    margin-top: 20px;
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    border: none;
-    border-radius: 6px;
-    background: #007bff;
-    color: white;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #0056b3;
 }
 
 select, button {
@@ -53,4 +29,15 @@ select, button {
     margin-top: 10px;
     border-radius: 5px;
     font-size: 16px;
+}
+
+button {
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0056b3;
 }
