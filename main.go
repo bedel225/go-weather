@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+
+	"github.com/joho/godotenv"
 )
 
 type Weather struct {
@@ -15,7 +17,13 @@ type Weather struct {
 }
 
 func main() {
-	apiKey := "e4257af80a583839c67ce91bebf68fe0" // à remplacer
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println("Impossible de charger le fichier .env")
+	}
+
+	apiKey := os.Getenv("OPENWEATHER_API_KEY")
+
 	city := "Paris"
 
 	url := fmt.Sprintf("https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s&units=metric", city, apiKey)
