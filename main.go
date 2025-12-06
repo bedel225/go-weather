@@ -23,15 +23,21 @@ func main() {
 	}
 
 	apiKey := os.Getenv("OPENWEATHER_API_KEY")
-
 	city := "Paris"
 
 	url := fmt.Sprintf("https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s&units=metric", city, apiKey)
 	resp, err := http.Get(url)
+
 	if err != nil {
 		fmt.Println("Erreur :", err)
 		os.Exit(1)
 	}
+
+	if resp.StatusCode == 401 {
+		fmt.Println("la clé API est invalide.")
+		os.Exit(1)
+	}
+
 	defer resp.Body.Close()
 
 	var w Weather
