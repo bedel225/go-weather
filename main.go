@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"net/http"
 
 	frontweather "github.com/bedel225/go-weather/front-weather"
 	"github.com/bedel225/go-weather/functions"
@@ -16,7 +18,19 @@ type Weather struct {
 
 func main() {
 
-	frontweather.Index()
+	http.HandleFunc("/", frontweather.AccueilHandler)
+
+	// Servir fichiers statiques (CSS, images…)
+	http.Handle("/static/css/",
+		http.StripPrefix("/static/css/", http.FileServer(http.Dir("static/css"))),
+	)
+
+	log.Println("Serveur lancé sur http://localhost:8080")
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	apiKey := functions.ApiKey()
 	//city := "Paris"
 	city := "abidjan"
