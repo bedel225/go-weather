@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	frontweather "github.com/bedel225/go-weather/front-weather"
 	"github.com/bedel225/go-weather/functions"
 )
 
@@ -20,5 +21,7 @@ func main() {
 
 	temperature := functions.Temp(city, apiKey)
 
-	fmt.Printf("La température à %s est %.1f°C\n", city, temperature)
+	message := fmt.Sprintf("La température à %s est %.1f°C\n", city, temperature)
+
+	frontweather.Index(message)
 }
