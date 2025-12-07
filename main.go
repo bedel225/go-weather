@@ -15,6 +15,8 @@ type Weather struct {
 }
 
 func main() {
+
+	frontweather.Index()
 	apiKey := functions.ApiKey()
 	//city := "Paris"
 	city := "abidjan"
@@ -23,5 +25,5 @@ func main() {
 
 	message := fmt.Sprintf("La température à %s est %.1f°C\n", city, temperature)
 
-	frontweather.Index(message)
+	frontweather.Weather(message)
 }
