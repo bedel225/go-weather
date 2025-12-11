@@ -2,15 +2,21 @@ package frontweather
 
 import (
 	"encoding/json"
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
+
+	"github.com/bedel225/go-weather/functions"
 )
 
 type PageData struct {
 	Countries []string
 	Cities    map[string][]string
 }
+
+var SelectedCity string
+var SelectedCountry string
 
 // JSON convertit une structure Go en JSON utilisable dans le template
 func JSON(v interface{}) template.JS {
@@ -48,4 +54,20 @@ func AccueilHandler(w http.ResponseWriter, r *http.Request) {
 	if err := tmpl.Execute(w, data); err != nil {
 		log.Println("Erreur exécution:", err)
 	}
+}
+
+func WeatherHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "Méthode non autorisée", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Récupérer la ville et le pays depuis le formulaire
+	SelectedCity = r.FormValue("city")
+	SelectedCountry = r.FormValue("country")
+	apiKey := functions.ApiKey()
+
+	temperature := functions.Temp(SelectedCity, apiKey)
+
+	fmt.Fprintf(w, "Ville: %s\nPays: %s\nTemperature: %.1f°C", SelectedCity, SelectedCountry, temperature)
 }
